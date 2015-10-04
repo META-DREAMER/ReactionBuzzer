@@ -13,7 +13,7 @@
         android:text="Wait..."
         android:id="@+id/measure_reaction"
         android:contextClickable="true"
-        android:background="#c25975"
+        android:background="#505050"
         android:textSize="24dp"
         android:layout_centerHorizontal="true" />
 

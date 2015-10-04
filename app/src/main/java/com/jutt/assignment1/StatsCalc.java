@@ -32,11 +32,15 @@ public class StatsCalc {
 
     public Integer min(Integer n) {
         List<Integer> subList = getLast(n);
+        if(subList.isEmpty())
+            return 0;
         return Collections.min(subList);
     }
 
     public Integer max(Integer n) {
         List<Integer> subList = getLast(n);
+        if(subList.isEmpty())
+            return 0;
         return Collections.max(subList);
     }
 
@@ -44,25 +48,28 @@ public class StatsCalc {
     public Integer avg(Integer n) {
         int sum = 0;
         List<Integer> subList = getLast(n);
-        if(!subList.isEmpty()) {
-            for(Integer time:subList) {
-                sum += time;
-            }
-            return sum/subList.size();
+
+        if(subList.isEmpty())
+            return 0;
+
+        for(Integer time:subList) {
+            sum += time;
         }
-        return 0;
+        return sum/subList.size();
     }
 
     public Integer median(Integer n) {
         Integer median;
-        List<Integer> sorted = getLast(n);
-        Collections.sort(sorted);
+        List<Integer> subList = getLast(n);
+        if(subList.isEmpty())
+            return 0;
+        Collections.sort(subList);
 
-        int middle = ((sorted.size()) / 2);
-        if(sorted.size() % 2 == 0){
-            median = (sorted.get(middle) + sorted.get(middle - 1)) / 2;
+        int middle = ((subList.size()) / 2);
+        if(subList.size() % 2 == 0){
+            median = (subList.get(middle) + subList.get(middle - 1)) / 2;
         } else{
-            median = sorted.get(middle);
+            median = subList.get(middle);
         }
         return median;
     }

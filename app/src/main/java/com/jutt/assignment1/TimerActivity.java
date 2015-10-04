@@ -38,7 +38,6 @@ public class TimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-
         data = new StatsData();
         timer = new ReactionTimer();
 
