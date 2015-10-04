@@ -29,8 +29,6 @@ public class ReactionTimer {
 
     public int getReaction () {
         long reaction = getTime() - delay;
-        if(reaction >= 0)
-            saveReaction();
         return (int) reaction;
     }
 
@@ -39,7 +37,4 @@ public class ReactionTimer {
         return TimeUnit.MILLISECONDS.convert(end-start, TimeUnit.NANOSECONDS);
     }
 
-    public void saveReaction() {
-
-    }
 }

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private static final String FILENAME = "stats.sav";
     private StatsData data;
     private Button launchTimerBtn;
 
@@ -35,19 +34,19 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         launchTimerBtn = (Button) findViewById(R.id.launch_timer_btn);
+        data = new StatsData();
 
         launchTimerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 data.addReaction(1738);
-                startTimer(data);
+                launchTimer();
             }
         });
     }
 
-    private void startTimer(StatsData data) {
+    private void launchTimer() {
         Intent intent = new Intent(this,TimerActivity.class);
-        intent.putExtra("data", (StatsData) data);
         startActivity(intent);
     }
 
@@ -63,7 +62,6 @@ public class MainActivity extends Activity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
     }
 
     @Override
@@ -84,33 +82,5 @@ public class MainActivity extends Activity {
 
     //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
 
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-            Gson gson = new Gson();
-            // Taken from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html 2015-09-22
-            Type listType = new TypeToken<StatsData>() {}.getType();
-            data = gson.fromJson(in, listType);
-        } catch (FileNotFoundException e) {
-            data = new StatsData();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME, 0);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-            Gson gson = new Gson();
-            gson.toJson(data, writer);
-            writer.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
