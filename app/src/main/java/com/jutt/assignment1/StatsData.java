@@ -1,12 +1,15 @@
 package com.jutt.assignment1;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
  * Created by hammadjutt on 2015-10-03.
  */
-public class StatsData {
+public class StatsData implements Parcelable {
     private ArrayList<Integer> reactions;
     private ArrayList<BuzzerResult> buzzers;
 
@@ -38,6 +41,31 @@ public class StatsData {
         buzzers.clear();
     }
 
-    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeList(this.reactions);
+        parcel.writeTypedList(buzzers);
+
+    }
+
+    public static final Parcelable.Creator<StatsData> CREATOR = new Parcelable.Creator<StatsData>() {
+        public StatsData createFromParcel(Parcel in) {
+            return new StatsData(in);
+        }
+
+        public StatsData[] newArray(int size) {
+            return new StatsData[size];
+        }
+    };
+
+    private StatsData(Parcel in) {
+        this.reactions = in.readArrayList(Integer.class.getClassLoader());
+        in.readTypedList(this.buzzers, BuzzerResult.CREATOR);
+    }
 
 }
