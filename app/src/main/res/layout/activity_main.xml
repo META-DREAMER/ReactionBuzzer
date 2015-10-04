@@ -31,13 +31,13 @@
         android:textColor="@android:color/white"
         android:background="#c25975"
         android:layout_alignParentBottom="false"
-        android:layout_above="@+id/show_stats_btn" />
+        android:layout_above="@+id/launch_stats_btn" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:text="Show Stats"
-        android:id="@+id/show_stats_btn"
+        android:id="@+id/launch_stats_btn"
         android:layout_alignParentStart="true"
         android:textColor="@android:color/white"
         android:background="#39add1"

@@ -2,17 +2,12 @@ package com.jutt.assignment1;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -97,7 +92,7 @@ public class TimerActivity extends AppCompatActivity {
             measureReaction.setBackgroundColor(0xffc25975);
         }
         Toast.makeText(TimerActivity.this, "Restarting...", Toast.LENGTH_SHORT).show();
-        startGame(2000);
+        startGame(2500);
     }
 
     Handler timerHandler = new Handler()

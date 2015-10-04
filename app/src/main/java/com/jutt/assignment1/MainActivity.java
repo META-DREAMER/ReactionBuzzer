@@ -2,47 +2,42 @@ package com.jutt.assignment1;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private StatsData data;
     private Button launchTimerBtn;
+    private Button launchStatsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        launchTimerBtn = (Button) findViewById(R.id.launch_timer_btn);
-        data = new StatsData();
 
+        launchTimerBtn = (Button) findViewById(R.id.launch_timer_btn);
         launchTimerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data.addReaction(1738);
                 launchTimer();
             }
         });
+        launchStatsBtn = (Button) findViewById(R.id.launch_stats_btn);
+        launchStatsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchStats();
+            }
+        });
+    }
+
+    private void launchStats() {
+        Intent intent = new Intent(this,StatsActivity.class);
+        startActivity(intent);
     }
 
     private void launchTimer() {
