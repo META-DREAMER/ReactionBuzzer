@@ -1,11 +1,14 @@
 package com.jutt.assignment1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,12 +27,30 @@ public class MainActivity extends Activity {
 
     private static final String FILENAME = "stats.sav";
     private StatsData data;
+    private Button launchTimerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        launchTimerBtn = (Button) findViewById(R.id.launch_timer_btn);
+
+        launchTimerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.addReaction(1738);
+                startTimer(data);
+            }
+        });
     }
+
+    private void startTimer(StatsData data) {
+        Intent intent = new Intent(this,TimerActivity.class);
+        intent.putExtra("data", (StatsData) data);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +80,9 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
 
     private void loadFromFile() {
         try {
