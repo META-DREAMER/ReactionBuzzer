@@ -12,6 +12,7 @@ public class MainActivity extends Activity {
 
     private Button launchTimerBtn;
     private Button launchStatsBtn;
+    private Button launchBuzzerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,13 @@ public class MainActivity extends Activity {
                 launchStats();
             }
         });
+        launchBuzzerBtn = (Button) findViewById(R.id.launch_buzzer_btn);
+        launchBuzzerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchBuzzer();
+            }
+        });
     }
 
     private void launchStats() {
@@ -42,6 +50,11 @@ public class MainActivity extends Activity {
 
     private void launchTimer() {
         Intent intent = new Intent(this,TimerActivity.class);
+        startActivity(intent);
+    }
+
+    private void launchBuzzer() {
+        Intent intent = new Intent(this,BuzzerActivity.class);
         startActivity(intent);
     }
 

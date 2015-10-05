@@ -1,5 +1,7 @@
 package com.jutt.assignment1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,6 +72,30 @@ public class StatsActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void confirmClear(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure you want to delete all your stats?");
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                data.clearStats();
+                saveInFile();
+                Toast.makeText(StatsActivity.this, "Stats Deleted", Toast.LENGTH_SHORT).show();
+                update();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
     private String rStatsParsed() {
         StringBuilder rString = new StringBuilder();
 
@@ -116,8 +143,7 @@ public class StatsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            data.clearStats();
-            update();
+            confirmClear();
             return true;
         }
 
