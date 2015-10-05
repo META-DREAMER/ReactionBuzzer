@@ -2,8 +2,11 @@ package com.jutt.assignment1;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,6 +74,57 @@ public class StatsActivity extends AppCompatActivity {
                 }
             }
         }
+
+        rows = bStatsParsed().split("\\n");
+        TableLayout bsTable =(TableLayout) findViewById(R.id.bs_table);
+
+        for(int j = 0; j < rows.length; j++) {
+            String[] columns = rows[j].split(",");
+            View view = bsTable.getChildAt(j);
+            if (view instanceof TableRow) {
+                TableRow tableRow = (TableRow) view;
+                for(int i = 0; i < columns.length; i++) {
+                    TextView cell=(TextView) tableRow.getChildAt(i);
+                    cell.setText(columns[i]);
+                }
+            }
+        }
+    }
+
+    public void sendEmail () {
+
+        StringBuilder emailText = new StringBuilder();
+
+        emailText.append("<h3>Reaction Stats</h3>");
+        String[] rows = rStatsParsed().split("\\n");
+
+        for(int j = 0; j < rows.length; j++) {
+            String[] columns = rows[j].split(",");
+            emailText.append("<p>");
+            for(int i = 0; i < columns.length; i++) {
+                emailText.append(columns[i]).append(" | ");
+            }
+            emailText.append("</p>");
+        }
+
+        emailText.append("<h3>Buzzer Stats</h3>");
+        rows = bStatsParsed().split("\\n");
+
+        for(int j = 0; j < rows.length; j++) {
+            String[] columns = rows[j].split(",");
+            emailText.append("<p>");
+            for(int i = 0; i < columns.length; i++) {
+                emailText.append(columns[i]).append(" | ");
+            }
+            emailText.append("</p>");
+        }
+
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , Uri.parse("mailto:"));
+        i.putExtra(Intent.EXTRA_SUBJECT, "Reaction and Buzzer Stats");
+        i.putExtra(Intent.EXTRA_TEXT   , Html.fromHtml(emailText.toString()));
+        startActivity(Intent.createChooser(i, "Send mail..."));
     }
 
     public void confirmClear(){
@@ -95,6 +149,23 @@ public class StatsActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+    private String bStatsParsed() {
+        StringBuilder bString = new StringBuilder();
+        StatsCalc calc = new StatsCalc(data);
+        int[] numPlayers = {2,3,4};
+
+        bString.append(" , 2 Player, 3 Player, 4 Player");
+
+        for (int i = 1; i <= 4; i++){
+            bString.append("\nPlayer ").append(i);
+            for (int n:numPlayers) {
+                bString.append(",");
+                bString.append(String.valueOf(calc.countBuzzes(new Player(i), n)));
+            }
+        }
+
+        return bString.toString();
     }
     private String rStatsParsed() {
         StringBuilder rString = new StringBuilder();
@@ -142,8 +213,13 @@ public class StatsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_clear) {
             confirmClear();
+            return true;
+        }
+
+        if (id == R.id.action_email){
+            sendEmail();
             return true;
         }
 

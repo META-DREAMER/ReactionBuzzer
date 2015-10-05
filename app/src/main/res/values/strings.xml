@@ -8,4 +8,6 @@
     <string name="filename">stats.sav</string>
     <string name="title_activity_stats">Statistics</string>
     <string name="title_activity_buzzer">Gameshow Buzzer</string>
+    <string name="clear_stats">Clear Stats</string>
+    <string name="email_stats">Email Stats</string>
 </resources>

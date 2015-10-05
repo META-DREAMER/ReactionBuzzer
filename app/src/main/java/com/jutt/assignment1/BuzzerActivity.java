@@ -27,10 +27,10 @@ public class BuzzerActivity extends AppCompatActivity {
     private Button b1, b2, b3, b4;
     private Integer numPlayers;
     private StatsData data;
-    private static Player p1 = new Player(1);
-    private static Player p2 = new Player(2);
-    private static Player p3 = new Player(3);
-    private static Player p4 = new Player(4);
+    private static final Player p1 = new Player(1);
+    private static final Player p2 = new Player(2);
+    private static final Player p3 = new Player(3);
+    private static final Player p4 = new Player(4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,31 +83,62 @@ public class BuzzerActivity extends AppCompatActivity {
     View.OnClickListener buzzHandler = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Player winner = null;
+            view.setBackgroundColor(0xff51b46d);
             switch(view.getId()) {
                 case R.id.buzzer_1:
-                    Player winner = new Player(1);
+                    winner = p1;
                     break;
                 case R.id.buzzer_2:
+                    winner = p2;
                     break;
                 case R.id.buzzer_3:
+                    winner = p3;
                     break;
                 case R.id.buzzer_4:
+                    winner = p4;
                     break;
             }
+            if(winner != null){
+                saveWinner(winner);
+                displayWinner(winner);
+            }
+            view.setBackgroundColor(0x20ffffff);
         }
     };
 
-    public void promptPlayers(){
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Example");
-        String[] types = {"Two", "Three", "Four"};
-        b.setItems(types, new DialogInterface.OnClickListener() {
+    private void saveWinner (Player winner) {
+        BuzzerResult br = new BuzzerResult(winner, numPlayers);
+        data.addBuzzer(br);
+        saveInFile();
+    }
+    public void displayWinner(Player winner){
+        AlertDialog.Builder winnerPrompt = new AlertDialog.Builder(this);
+        winnerPrompt.setMessage("Player " + winner.getNumber().toString() + " Pressed it first!");
+        winnerPrompt.setCancelable(false);
 
+        winnerPrompt.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        AlertDialog alertDialog = winnerPrompt.create();
+        alertDialog.show();
+    }
+
+    public void promptPlayers(){
+        AlertDialog.Builder selectPlayers = new AlertDialog.Builder(this);
+        selectPlayers.setTitle("Select a number of Players");
+        selectPlayers.setCancelable(false);
+        String[] types = {"Two", "Three", "Four"};
+        selectPlayers.setItems(types, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
-                switch(which){
+                switch (which) {
                     case 0:
                         setPlayers(2);
                         break;
@@ -121,7 +152,7 @@ public class BuzzerActivity extends AppCompatActivity {
             }
         });
 
-        b.show();
+        selectPlayers.show();
     }
 
     private void loadFromFile() {
