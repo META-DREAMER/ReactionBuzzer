@@ -95,29 +95,11 @@ public class StatsActivity extends AppCompatActivity {
 
         StringBuilder emailText = new StringBuilder();
 
-        emailText.append("<h3>Reaction Stats</h3>");
-        String[] rows = rStatsParsed().split("\\n");
+        emailText.append("<h4>Reaction Stats</h4>");
+        emailText.append(rStatsParsed());
 
-        for(int j = 0; j < rows.length; j++) {
-            String[] columns = rows[j].split(",");
-            emailText.append("<p>");
-            for(int i = 0; i < columns.length; i++) {
-                emailText.append(columns[i]).append(" | ");
-            }
-            emailText.append("</p>");
-        }
-
-        emailText.append("<h3>Buzzer Stats</h3>");
-        rows = bStatsParsed().split("\\n");
-
-        for(int j = 0; j < rows.length; j++) {
-            String[] columns = rows[j].split(",");
-            emailText.append("<p>");
-            for(int i = 0; i < columns.length; i++) {
-                emailText.append(columns[i]).append(" | ");
-            }
-            emailText.append("</p>");
-        }
+        emailText.append("<h4>Buzzer Stats</h4>");
+        emailText.append(rStatsParsed());
 
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
