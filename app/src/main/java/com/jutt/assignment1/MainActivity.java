@@ -86,9 +86,4 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
-
-
 }

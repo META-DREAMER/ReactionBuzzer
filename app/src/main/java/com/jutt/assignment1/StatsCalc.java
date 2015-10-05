@@ -13,8 +13,6 @@ public class StatsCalc {
     private ArrayList<Integer> reactions;
     private ArrayList<BuzzerResult> buzzers;
 
-//    private Map<String, ArrayList<Integer>> statData;
-
     public StatsCalc(StatsData data) {
         this.data = data;
         this.reactions = this.data.getReactions();
@@ -83,12 +81,4 @@ public class StatsCalc {
         }
         return i;
     }
-
-    class ParsedStats {
-        int[][] reactions = new int[4][3];
-    }
-
-
-
-
 }

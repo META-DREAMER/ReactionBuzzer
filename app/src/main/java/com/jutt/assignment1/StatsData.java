@@ -37,7 +37,4 @@ public class StatsData {
         reactions.clear();
         buzzers.clear();
     }
-
-
-
 }

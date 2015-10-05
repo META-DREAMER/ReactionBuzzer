@@ -48,8 +48,6 @@ public class TimerActivity extends AppCompatActivity {
                 timerHandler.sendEmptyMessage(MSG_STOP_TIMER);
             }
         });
-
-
     }
 
     @Override
@@ -60,25 +58,23 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void instructions(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Tap the screen when it turns green to record your reaction times. Press back to exit.");
+        AlertDialog.Builder instructionPrompt = new AlertDialog.Builder(this);
+        instructionPrompt.setMessage("Tap the screen when it turns green to record your reaction times. Press back to exit.");
 
-        alertDialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+        instructionPrompt.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 Toast.makeText(TimerActivity.this, "Timer Started", Toast.LENGTH_SHORT).show();
                 startGame(0);
             }
         });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog alertDialog = instructionPrompt.create();
         alertDialog.show();
     }
 
     public void startGame(Integer delay) {
         timerHandler.sendEmptyMessageDelayed(MSG_START_TIMER, delay);
     }
-
 
     private void checkReaction(Integer reaction) {
         if (reaction >= 0) {
@@ -124,8 +120,6 @@ public class TimerActivity extends AppCompatActivity {
             }
         }
     };
-
-
 
     //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {

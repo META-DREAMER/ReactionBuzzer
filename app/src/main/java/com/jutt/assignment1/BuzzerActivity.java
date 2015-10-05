@@ -81,7 +81,6 @@ public class BuzzerActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Player winner = null;
-            view.setBackgroundColor(0xff51b46d);
             switch(view.getId()) {
                 case R.id.buzzer_1:
                     winner = p1;
@@ -100,7 +99,6 @@ public class BuzzerActivity extends AppCompatActivity {
                 saveWinner(winner);
                 displayWinner(winner);
             }
-            view.setBackgroundColor(0x20ffffff);
         }
     };
 
@@ -120,7 +118,6 @@ public class BuzzerActivity extends AppCompatActivity {
 
             }
         });
-
         AlertDialog alertDialog = winnerPrompt.create();
         alertDialog.show();
     }
