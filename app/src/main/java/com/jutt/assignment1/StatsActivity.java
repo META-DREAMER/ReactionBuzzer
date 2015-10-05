@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +25,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -95,17 +91,17 @@ public class StatsActivity extends AppCompatActivity {
 
         StringBuilder emailText = new StringBuilder();
 
-        emailText.append("<h4>Reaction Stats</h4>");
+        emailText.append("Reaction Stats:\n\n");
         emailText.append(rStatsParsed());
 
-        emailText.append("<h4>Buzzer Stats</h4>");
+        emailText.append("\n\nBuzzer Stats:\n\n");
         emailText.append(rStatsParsed());
 
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , Uri.parse("mailto:"));
+        i.putExtra(Intent.EXTRA_EMAIL, Uri.parse("mailto:"));
         i.putExtra(Intent.EXTRA_SUBJECT, "Reaction and Buzzer Stats");
-        i.putExtra(Intent.EXTRA_TEXT   , Html.fromHtml(emailText.toString()));
+        i.putExtra(Intent.EXTRA_TEXT   , emailText.toString());
         startActivity(Intent.createChooser(i, "Send mail..."));
     }
 
@@ -159,23 +155,19 @@ public class StatsActivity extends AppCompatActivity {
 
         rString.append("\nMin");
         for (int n:ranges) {
-            rString.append(",");
-            rString.append(String.valueOf(calc.min(n).doubleValue()/1000));
+            rString.append(",").append(String.valueOf(calc.min(n).doubleValue() / 1000)).append(" s");
         }
         rString.append("\nMax");
         for (int n:ranges) {
-            rString.append(",");
-            rString.append(String.valueOf(calc.max(n).doubleValue()/1000));
+            rString.append(",").append(String.valueOf(calc.max(n).doubleValue() / 1000)).append(" s");
         }
         rString.append("\nAverage");
         for (int n:ranges) {
-            rString.append(",");
-            rString.append(String.valueOf(calc.avg(n).doubleValue()/1000));
+            rString.append(",").append(String.valueOf(calc.avg(n).doubleValue() / 1000)).append(" s");
         }
         rString.append("\nMedian");
         for (int n:ranges) {
-            rString.append(",");
-            rString.append(String.valueOf(calc.median(n).doubleValue()/1000));
+            rString.append(",").append(String.valueOf(calc.median(n).doubleValue() / 1000)).append(" s");
         }
         return rString.toString();
     }
@@ -208,6 +200,7 @@ public class StatsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(getString(R.string.filename));

@@ -38,6 +38,6 @@ public class StatsData {
         buzzers.clear();
     }
 
-    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
+
 
 }

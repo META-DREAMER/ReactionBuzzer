@@ -46,4 +46,39 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentRight="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Reaction Buzzer"
+        android:id="@+id/textView31"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:singleLine="true"
+        android:textSize="30dp"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="by Hammad Jutt"
+        android:id="@+id/textView32"
+        android:layout_below="@+id/textView31"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp"
+        android:textColor="#70ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="CMPUT 301 Assignment 1"
+        android:id="@+id/textView33"
+        android:textSize="16dp"
+        android:textColor="#70ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

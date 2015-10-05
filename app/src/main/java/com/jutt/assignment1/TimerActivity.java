@@ -128,7 +128,7 @@ public class TimerActivity extends AppCompatActivity {
 
 
 
-
+    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(getString(R.string.filename));

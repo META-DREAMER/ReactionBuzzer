@@ -4,11 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -155,6 +152,7 @@ public class BuzzerActivity extends AppCompatActivity {
         selectPlayers.show();
     }
 
+    //Loading and saving taken from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(getString(R.string.filename));
