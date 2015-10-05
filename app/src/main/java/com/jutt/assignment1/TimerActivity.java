@@ -24,7 +24,6 @@ import java.lang.reflect.Type;
 
 public class TimerActivity extends AppCompatActivity {
 
-    private static final String TAG = TimerActivity.class.getSimpleName();
     private StatsData data;
     private Button measureReaction;
     private ReactionTimer timer;
